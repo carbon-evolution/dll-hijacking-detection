@@ -1,0 +1,249 @@
+================================================================================
+DLL HIJACKING VULNERABILITY SCAN REPORT
+Generated: 2025-03-08 16:11:15
+System: Windows 10.0.26120 (64bit)
+Scan duration: 463.65 seconds
+================================================================================
+
+SUMMARY:
+Total DLLs scanned: 7749
+Suspicious DLLs found: 168
+DLLs analyzed in detail: 30
+
+ANALYZED SUSPICIOUS DLLs:
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   # | DLL Path                                                                              | Analysis Results                                                                                                                                                                    |
++=====+=======================================================================================+=====================================================================================================================================================================================+
+|   1 | C:\Users\arthur\AppData\Local\Microsoft\OneDrive\25.025.0209.0001\FileCoAuthLib64.dll | Signature: Invalid, Size: 0.20 MB, Modified: 2025-03-03 21:54:54, VirusTotal: https://www.virustotal.com/gui/file/c4bde2c1d94d8605de5c01f3a1e7ead6b64d9d9e45f4570c7242e6614e778236  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   2 | C:\Users\arthur\AppData\Local\Microsoft\OneDrive\25.025.0209.0001\FileSyncShell64.dll | Signature: Invalid, Size: 1.81 MB, Modified: 2025-03-03 21:54:54, VirusTotal: https://www.virustotal.com/gui/file/5244a135d38e50277bdda0635b0c673a87414df3bc9d3616da96e001a5e4d5a5  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   3 | C:\Users\arthur\AppData\Local\Programs\cursor\D3DCompiler_47.dll                      | Signature: Invalid, Size: 4.69 MB, Modified: 2025-02-28 20:03:50, VirusTotal: https://www.virustotal.com/gui/file/af7b99be1b8770c0e4d18e43b04e81d11bdeb667fa6b07ade7a88f4c5676bf9a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   4 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   5 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   6 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   7 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   8 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   9 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  10 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  11 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  12 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  13 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  14 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  15 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  16 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  17 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  18 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  19 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  20 | C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll                              | Signature: Invalid, Size: 2.79 MB, Modified: 2025-02-28 20:03:58, VirusTotal: https://www.virustotal.com/gui/file/a946aa28f0a5402c0f5b48c0533f32272d3a3ab1558a49eddd37a93880f50a1a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  21 | C:\Users\arthur\AppData\Local\Programs\cursor\libegl.dll                              | Signature: Invalid, Size: 0.46 MB, Modified: 2025-02-28 20:03:50, VirusTotal: https://www.virustotal.com/gui/file/9dd38da7b023ed19ef3fc4d6f6d66db347b500a967ffd69908f0e542a5ad8d00  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  22 | C:\Users\arthur\AppData\Local\Programs\cursor\libglesv2.dll                           | Signature: Invalid, Size: 7.98 MB, Modified: 2025-02-28 20:03:50, VirusTotal: https://www.virustotal.com/gui/file/8fe959ed058481032837df12f09990c56b7941813404001399f7f6739facd9f3  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  23 | C:\Users\arthur\AppData\Local\Programs\cursor\vk_swiftshader.dll                      | Signature: Invalid, Size: 5.20 MB, Modified: 2025-02-28 20:03:50, VirusTotal: https://www.virustotal.com/gui/file/446e52ef11fda64d3767b5608b6f94cea5639bf31a9c54dff48a1c52bb61d02b  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  24 | C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\D3DCompiler_47.dll      | Signature: Invalid, Size: 4.69 MB, Modified: 2025-02-26 23:44:02, VirusTotal: https://www.virustotal.com/gui/file/af7b99be1b8770c0e4d18e43b04e81d11bdeb667fa6b07ade7a88f4c5676bf9a  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  25 | C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\dxcompiler.dll          | Signature: Invalid, Size: 24.59 MB, Modified: 2025-02-26 23:44:02, VirusTotal: https://www.virustotal.com/gui/file/c3fa2762cb9737085546c4078aac1e1072fd62bb49661f3cdc17ca9819e097d5 |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  26 | C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\dxil.dll                | Signature: Invalid, Size: 1.44 MB, Modified: 2025-02-26 23:44:02, VirusTotal: https://www.virustotal.com/gui/file/a5fe1d8d9caa2ff29daffd53f73a9a4e19c250351b2abe4fc7b57e60ce67ac68  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  27 | C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\libegl.dll              | Signature: Invalid, Size: 0.48 MB, Modified: 2025-02-26 23:44:02, VirusTotal: https://www.virustotal.com/gui/file/61e4594926ceb4cb43c5aaa4b705086ba8f0f7d0ec9ea5803a429429de41b7f8  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  28 | C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\libglesv2.dll           | Signature: Invalid, Size: 7.62 MB, Modified: 2025-02-26 23:44:02, VirusTotal: https://www.virustotal.com/gui/file/06023860a40e48e78c66e1656ca50b52e84a44d29101d61d9e7e775d7ded5c4c  |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  29 | C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll             | Signature: Not checked (file too large), Size: 237.93 MB (too large for detailed analysis), Modified: 2025-02-26 23:44:02                                                           |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|  30 | C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll             | Signature: Not checked (file too large), Size: 237.93 MB (too large for detailed analysis), Modified: 2025-02-26 23:44:02                                                           |
++-----+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Note: Only 30 of 168 suspicious DLLs were deeply analyzed due to performance reasons.
+
+ALL SUSPICIOUS DLLs:
+1. C:\Users\arthur\AppData\Local\Microsoft\OneDrive\25.025.0209.0001\FileCoAuthLib64.dll
+2. C:\Users\arthur\AppData\Local\Microsoft\OneDrive\25.025.0209.0001\FileSyncShell64.dll
+3. C:\Users\arthur\AppData\Local\Programs\cursor\D3DCompiler_47.dll
+4. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+5. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+6. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+7. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+8. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+9. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+10. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+11. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+12. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+13. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+14. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+15. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+16. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+17. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+18. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+19. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+20. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+21. C:\Users\arthur\AppData\Local\Programs\cursor\libegl.dll
+22. C:\Users\arthur\AppData\Local\Programs\cursor\libglesv2.dll
+23. C:\Users\arthur\AppData\Local\Programs\cursor\vk_swiftshader.dll
+24. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\D3DCompiler_47.dll
+25. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\dxcompiler.dll
+26. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\dxil.dll
+27. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\libegl.dll
+28. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\libglesv2.dll
+29. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+30. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+31. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+32. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+33. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+34. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+35. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+36. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+37. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+38. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+39. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+40. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+41. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+42. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+43. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+44. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+45. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+46. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+47. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+48. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+49. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+50. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+51. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+52. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+53. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+54. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+55. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+56. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+57. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+58. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+59. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+60. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+61. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+62. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+63. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+64. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+65. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+66. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vk_swiftshader.dll
+67. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libX11-6.dll
+68. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libXau-6.dll
+69. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libXdmcp-6.dll
+70. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libdl.dll
+71. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libgcc_s_dw2-1.dll
+72. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libglapi-0.dll
+73. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libwinpthread-1.dll
+74. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libxcb-1.dll
+75. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libxcb-image-0.dll
+76. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libxcb-shm-0.dll
+77. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libxcb-util-1.dll
+78. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\zlib1.dll
+79. C:\WINDOWS\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartDocked.dll
+80. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\CoreMessagingXP.dll
+81. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\MRM.dll
+82. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.DirectManipulation.dll
+83. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.InputStateManager.dll
+84. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.Internal.FrameworkUdk.CBS.dll
+85. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.Internal.FrameworkUdk.dll
+86. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Composition.OSSupport.dll
+87. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Input.dll
+88. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Windowing.Core.dll
+89. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Windowing.dll
+90. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.Controls.dll
+91. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.Internal.dll
+92. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.Phone.dll
+93. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+94. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.Windows.ApplicationModel.Resources.dll
+95. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.WindowsAppRuntime.Insights.Resource.dll
+96. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\WinUIEdit.dll
+97. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\dcompi.dll
+98. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\dwmcorei.dll
+99. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\marshal.dll
+100. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\wuceffectsi.dll
+101. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\DesktopSpotlight.dll
+102. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\IrisService.dll
+103. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\MSVCP140_APP.dll
+104. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\MSVCP140_APP.dll
+105. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\Microsoft.Web.WebView2.Core.dll
+106. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.Core.dll
+107. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.Core.dll
+108. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.InternalWebApi.dll
+109. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.Model.dll
+110. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.Model.dll
+111. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.UI.dll
+112. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+113. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+114. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+115. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+116. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\wv2winrt.dll
+117. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\AdaptiveCards.ObjectModel.Uwp.dll
+118. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\AdaptiveCards.Rendering.Uwp.dll
+119. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\MicrosoftGraphRecentItemsManager.dll
+120. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\SnapLayout.dll
+121. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+122. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+123. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+124. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+125. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\Taskbar.View.dll
+126. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.FileExp_cw5n1h2txyewy\FileExplorerExtensions.dll
+127. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Clipboard.dll
+128. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ExperienceExtensions.dll
+129. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\MSVCP140_APP.dll
+130. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\MSVCP140_APP.dll
+131. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\MSVCP140_APP.dll
+132. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Microsoft.ReactNative.dll
+133. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Payments.dll
+134. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ReactNativeXaml.dll
+135. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+136. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+137. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+138. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+139. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+140. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+141. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WinRTComponents.dll
+142. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WinRTTurboModule.dll
+143. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WsxPackManager.dll
+144. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WsxPackManager.dll
+145. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\hermes.dll
+146. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ux-phui.dll
+147. C:\WINDOWS\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ClockFlyoutExperience.dll
+148. C:\WINDOWS\SystemApps\ShellExperienceHost_cw5n1h2txyewy\DevicesFlowUI.dll
+149. C:\WINDOWS\SystemApps\ShellExperienceHost_cw5n1h2txyewy\Windows.UI.ActionCenter.dll
+150. C:\Windows\ImmersiveControlPanel\SystemSettingsViewModel.Desktop.dll
+151. C:\Windows\ShellComponents\WindowsInternal.ComposableShell.DesktopHosting.dll
+152. C:\Windows\ShellComponents\WindowsInternal.ComposableShell.Experiences.Switcher.dll
+153. C:\Windows\ShellComponents\WindowsInternal.ShellUI.dll
+154. C:\Windows\ShellComponents\WindowsInternal.ShellUI.dll
+155. C:\Windows\ShellExperiences\JumpViewUI.dll
+156. C:\Windows\ShellExperiences\NetworkUX.dll
+157. C:\Windows\ShellExperiences\TileControl.dll
+158. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+159. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+160. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+161. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+162. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+163. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+164. C:\Windows\SystemApps\Shared\WebView2SDK\WebView2Standalone.dll
+165. C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy\Windows.UI.QuickActions.dll
+166. c:\Users\arthur\.cursor\extensions\ms-toolsai.jupyter-2024.11.0-win32-x64\dist\node_modules\zeromq\prebuilds\win32-x64\MSVCP140.dll
+167. c:\Users\arthur\.cursor\extensions\ms-toolsai.jupyter-2024.11.0-win32-x64\dist\node_modules\zeromq\prebuilds\win32-x64\VCRUNTIME140.dll
+168. c:\Users\arthur\.cursor\extensions\ms-toolsai.jupyter-2024.11.0-win32-x64\dist\node_modules\zeromq\prebuilds\win32-x64\VCRUNTIME140_1.dll
+

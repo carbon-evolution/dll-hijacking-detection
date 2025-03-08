@@ -1,0 +1,233 @@
+================================================================================
+DLL HIJACKING VULNERABILITY SCAN REPORT
+Generated: 2025-03-08 16:23:00
+System: Windows 10.0.26120 (64bit)
+Scan duration: 174.48 seconds
+================================================================================
+
+SUMMARY:
+Total DLLs scanned: 8009
+Suspicious DLLs found: 192 (with 103 unique paths)
+DLLs analyzed in detail: 10
+
+ANALYZED SUSPICIOUS DLLs:
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   # | DLL                 | Signature   | Size     | VT Community                | VT Detection   | VT Tags                                                                                         |
++=====+=====================+=============+==========+=============================+================+=================================================================================================+
+|   1 | FileCoAuthLib64.dll | Invalid     | 0.20 MB  | No votes                    | 0/72 (0.0%)    | overlay, detect-debug-environment, signed, long-sleeps, 64bits, pedll                           |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   2 | FileSyncShell64.dll | Invalid     | 1.81 MB  | No votes                    | 0/63 (0.0%)    | detect-debug-environment, overlay, long-sleeps, 64bits, signed, pedll                           |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   3 | D3DCompiler_47.dll  | Invalid     | 4.69 MB  | 42.9% malicious (3/7 votes) | 0/72 (0.0%)    | detect-debug-environment, known-distributor, 64bits, legit, signed, long-sleeps, overlay, pedll |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   4 | ffmpeg.dll          | Invalid     | 2.79 MB  | No votes                    | 0/75 (0.0%)    | 64bits, long-sleeps, pedll, detect-debug-environment                                            |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   5 | libegl.dll          | Invalid     | 0.46 MB  | No votes                    | 0/74 (0.0%)    | pedll, 64bits, detect-debug-environment                                                         |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   6 | libglesv2.dll       | Invalid     | 7.98 MB  | No votes                    | 1/76 (1.3%)    | detect-debug-environment, 64bits, pedll                                                         |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   7 | vk_swiftshader.dll  | Invalid     | 5.20 MB  | No votes                    | 0/76 (0.0%)    | detect-debug-environment, 64bits, pedll                                                         |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   8 | D3DCompiler_47.dll  | Invalid     | 4.69 MB  | 42.9% malicious (3/7 votes) | 0/72 (0.0%)    | detect-debug-environment, known-distributor, 64bits, legit, signed, long-sleeps, overlay, pedll |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|   9 | dxcompiler.dll      | Invalid     | 24.59 MB | No votes                    | 0/72 (0.0%)    | signed, detect-debug-environment, pedll, 64bits, long-sleeps, overlay                           |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+|  10 | dxil.dll            | Invalid     | 1.44 MB  | 0.0% malicious (0/1 votes)  | 0/72 (0.0%)    | long-sleeps, 64bits, detect-debug-environment, pedll, known-distributor, signed, overlay        |
++-----+---------------------+-------------+----------+-----------------------------+----------------+-------------------------------------------------------------------------------------------------+
+
+Note: Only 10 of 103 unique suspicious DLLs were analyzed due to performance reasons.
+
+ALL SUSPICIOUS DLLs:
+1. C:\Users\arthur\AppData\Local\Microsoft\OneDrive\25.025.0209.0001\FileCoAuthLib64.dll
+2. C:\Users\arthur\AppData\Local\Microsoft\OneDrive\25.025.0209.0001\FileSyncShell64.dll
+3. C:\Users\arthur\AppData\Local\Programs\cursor\D3DCompiler_47.dll
+4. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+5. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+6. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+7. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+8. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+9. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+10. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+11. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+12. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+13. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+14. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+15. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+16. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+17. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+18. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+19. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+20. C:\Users\arthur\AppData\Local\Programs\cursor\ffmpeg.dll
+21. C:\Users\arthur\AppData\Local\Programs\cursor\libegl.dll
+22. C:\Users\arthur\AppData\Local\Programs\cursor\libglesv2.dll
+23. C:\Users\arthur\AppData\Local\Programs\cursor\vk_swiftshader.dll
+24. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\D3DCompiler_47.dll
+25. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\dxcompiler.dll
+26. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\dxil.dll
+27. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\libegl.dll
+28. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\libglesv2.dll
+29. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+30. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+31. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+32. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+33. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+34. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+35. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+36. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+37. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+38. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+39. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+40. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+41. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+42. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+43. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+44. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+45. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+46. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi.dll
+47. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+48. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+49. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+50. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+51. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+52. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+53. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+54. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+55. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+56. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+57. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+58. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+59. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+60. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+61. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+62. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+63. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+64. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+65. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vivaldi_elf.dll
+66. C:\Users\arthur\AppData\Local\Vivaldi\Application\7.1.3570.58\vk_swiftshader.dll
+67. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libX11-6.dll
+68. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libXau-6.dll
+69. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libXdmcp-6.dll
+70. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libdl.dll
+71. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libgcc_s_dw2-1.dll
+72. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libglapi-0.dll
+73. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libwinpthread-1.dll
+74. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libxcb-1.dll
+75. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libxcb-image-0.dll
+76. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libxcb-shm-0.dll
+77. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\libxcb-util-1.dll
+78. C:\Users\arthur\AppData\Roaming\MobaXterm\slash\bin\zlib1.dll
+79. C:\WINDOWS\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartDocked.dll
+80. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\CoreMessagingXP.dll
+81. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\MRM.dll
+82. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.DirectManipulation.dll
+83. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.InputStateManager.dll
+84. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.Internal.FrameworkUdk.CBS.dll
+85. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.Internal.FrameworkUdk.dll
+86. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Composition.OSSupport.dll
+87. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Input.dll
+88. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Windowing.Core.dll
+89. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Windowing.dll
+90. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.Controls.dll
+91. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.Internal.dll
+92. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.Phone.dll
+93. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+94. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.Windows.ApplicationModel.Resources.dll
+95. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\Microsoft.WindowsAppRuntime.Insights.Resource.dll
+96. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\WinUIEdit.dll
+97. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\dcompi.dll
+98. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\dwmcorei.dll
+99. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\marshal.dll
+100. C:\WINDOWS\SystemApps\Microsoft.WindowsAppRuntime.CBS_8wekyb3d8bbwe\wuceffectsi.dll
+101. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\AccountsService.dll
+102. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\DesktopSpotlight.dll
+103. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\IrisService.dll
+104. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\IrisService.dll
+105. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\MSVCP140_APP.dll
+106. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\MSVCP140_APP.dll
+107. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\Microsoft.Web.WebView2.Core.dll
+108. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\RulesEngine.dll
+109. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.Core.dll
+110. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.Core.dll
+111. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.InternalWebApi.dll
+112. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.Model.dll
+113. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.Model.dll
+114. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchUx.UI.dll
+115. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+116. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+117. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+118. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+119. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\wv2winrt.dll
+120. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\AdaptiveCards.ObjectModel.Uwp.dll
+121. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\AdaptiveCards.Rendering.Uwp.dll
+122. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\MicrosoftGraphRecentItemsManager.dll
+123. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\SnapLayout.dll
+124. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+125. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+126. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+127. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+128. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\StartMenu.dll
+129. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\SystemSettingsExtensions.dll
+130. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Core_cw5n1h2txyewy\Taskbar.View.dll
+131. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.FileExp_cw5n1h2txyewy\FileExplorerExtensions.dll
+132. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Clipboard.dll
+133. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Clipboard.dll
+134. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ExperienceExtensions.dll
+135. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ExperienceExtensions.dll
+136. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\MSVCP140_APP.dll
+137. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\MSVCP140_APP.dll
+138. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\MSVCP140_APP.dll
+139. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\MSVCP140_APP.dll
+140. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Microsoft.ReactNative.dll
+141. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Microsoft.ReactNative.dll
+142. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Payments.dll
+143. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\Payments.dll
+144. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ReactNativeXaml.dll
+145. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ReactNativeXaml.dll
+146. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+147. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+148. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+149. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_1_APP.dll
+150. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+151. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+152. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+153. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\VCRUNTIME140_APP.dll
+154. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WinRTComponents.dll
+155. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WinRTComponents.dll
+156. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WinRTTurboModule.dll
+157. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WinRTTurboModule.dll
+158. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WsxPackManager.dll
+159. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WsxPackManager.dll
+160. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\WsxPackManager.dll
+161. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\hermes.dll
+162. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\hermes.dll
+163. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ux-phui.dll
+164. C:\WINDOWS\SystemApps\MicrosoftWindows.Client.Photon_cw5n1h2txyewy\ux-phui.dll
+165. C:\WINDOWS\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ClockFlyoutExperience.dll
+166. C:\WINDOWS\SystemApps\ShellExperienceHost_cw5n1h2txyewy\DevicesFlowUI.dll
+167. C:\WINDOWS\SystemApps\ShellExperienceHost_cw5n1h2txyewy\Windows.UI.ActionCenter.dll
+168. C:\WINDOWS\uus\packages\preview\AMD64\uusbrain.dll
+169. C:\Windows\ImmersiveControlPanel\SystemSettings.dll
+170. C:\Windows\ImmersiveControlPanel\SystemSettingsViewModel.Desktop.dll
+171. C:\Windows\ImmersiveControlPanel\SystemSettingsViewModel.Desktop.dll
+172. C:\Windows\ImmersiveControlPanel\Telemetry.Common.dll
+173. C:\Windows\ShellComponents\WindowsInternal.ComposableShell.DesktopHosting.dll
+174. C:\Windows\ShellComponents\WindowsInternal.ComposableShell.Experiences.Switcher.dll
+175. C:\Windows\ShellComponents\WindowsInternal.ShellUI.dll
+176. C:\Windows\ShellComponents\WindowsInternal.ShellUI.dll
+177. C:\Windows\ShellExperiences\JumpViewUI.dll
+178. C:\Windows\ShellExperiences\NetworkUX.dll
+179. C:\Windows\ShellExperiences\TileControl.dll
+180. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+181. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+182. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+183. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+184. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+185. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+186. C:\Windows\SystemApps\Microsoft.UI.Xaml.CBS_8wekyb3d8bbwe\Microsoft.UI.Xaml.dll
+187. C:\Windows\SystemApps\Shared\WebView2SDK\WebView2Standalone.dll
+188. C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy\Windows.UI.QuickActions.dll
+189. C:\Windows\UUS\Packages\Preview\AMD64\UpdatePolicyCore.dll
+190. c:\Users\arthur\.cursor\extensions\ms-toolsai.jupyter-2024.11.0-win32-x64\dist\node_modules\zeromq\prebuilds\win32-x64\MSVCP140.dll
+191. c:\Users\arthur\.cursor\extensions\ms-toolsai.jupyter-2024.11.0-win32-x64\dist\node_modules\zeromq\prebuilds\win32-x64\VCRUNTIME140.dll
+192. c:\Users\arthur\.cursor\extensions\ms-toolsai.jupyter-2024.11.0-win32-x64\dist\node_modules\zeromq\prebuilds\win32-x64\VCRUNTIME140_1.dll
+
