@@ -1,0 +1,780 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "find_suspicious_dlls.py",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L1",
+      "id": "find_suspicious_dlls_py",
+      "community": 2,
+      "norm_label": "find_suspicious_dlls.py"
+    },
+    {
+      "label": "is_suspicious_dll()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L74",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_is_suspicious_dll",
+      "community": 0,
+      "norm_label": "is_suspicious_dll()"
+    },
+    {
+      "label": "get_application_for_dll()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L80",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_get_application_for_dll",
+      "community": 3,
+      "norm_label": "get_application_for_dll()"
+    },
+    {
+      "label": "get_expected_signer()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L87",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_get_expected_signer",
+      "community": 1,
+      "norm_label": "get_expected_signer()"
+    },
+    {
+      "label": "get_loaded_dlls()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L94",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_get_loaded_dlls",
+      "community": 5,
+      "norm_label": "get_loaded_dlls()"
+    },
+    {
+      "label": "get_file_hash()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L115",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_get_file_hash",
+      "community": 1,
+      "norm_label": "get_file_hash()"
+    },
+    {
+      "label": "get_virustotal_analysis()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L134",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_get_virustotal_analysis",
+      "community": 0,
+      "norm_label": "get_virustotal_analysis()"
+    },
+    {
+      "label": "get_file_origin()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L204",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_get_file_origin",
+      "community": 1,
+      "norm_label": "get_file_origin()"
+    },
+    {
+      "label": "analyze_imports()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L235",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_analyze_imports",
+      "community": 0,
+      "norm_label": "analyze_imports()"
+    },
+    {
+      "label": "check_digital_signature()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L285",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_check_digital_signature",
+      "community": 1,
+      "norm_label": "check_digital_signature()"
+    },
+    {
+      "label": "format_signature_info()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L353",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_format_signature_info",
+      "community": 2,
+      "norm_label": "format_signature_info()"
+    },
+    {
+      "label": "rank_suspicious_dlls()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L383",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rank_suspicious_dlls",
+      "community": 3,
+      "norm_label": "rank_suspicious_dlls()"
+    },
+    {
+      "label": "analyze_dlls()",
+      "file_type": "code",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L416",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "community": 0,
+      "norm_label": "analyze_dlls()"
+    },
+    {
+      "label": "Check if a DLL is loaded from a non-standard directory.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L75",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_75",
+      "community": 0,
+      "norm_label": "check if a dll is loaded from a non-standard directory."
+    },
+    {
+      "label": "Identify which application a DLL belongs to based on its path.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L81",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_81",
+      "community": 3,
+      "norm_label": "identify which application a dll belongs to based on its path."
+    },
+    {
+      "label": "Get the expected signer for a DLL based on its path.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L88",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_88",
+      "community": 1,
+      "norm_label": "get the expected signer for a dll based on its path."
+    },
+    {
+      "label": "Runs ListDLLs.exe to get all loaded DLLs.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L95",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_95",
+      "community": 5,
+      "norm_label": "runs listdlls.exe to get all loaded dlls."
+    },
+    {
+      "label": "Calculate SHA256 hash of a file (faster than multiple hashes).",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L116",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_116",
+      "community": 1,
+      "norm_label": "calculate sha256 hash of a file (faster than multiple hashes)."
+    },
+    {
+      "label": "Query the VirusTotal API for file analysis based on hash.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L135",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_135",
+      "community": 0,
+      "norm_label": "query the virustotal api for file analysis based on hash."
+    },
+    {
+      "label": "Get basic file information.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L205",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_205",
+      "community": 1,
+      "norm_label": "get basic file information."
+    },
+    {
+      "label": "Analyze DLL imports for suspicious API calls with timeout.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L236",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_236",
+      "community": 0,
+      "norm_label": "analyze dll imports for suspicious api calls with timeout."
+    },
+    {
+      "label": "Enhanced check for digital signature with verification against expected signer.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L286",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_286",
+      "community": 1,
+      "norm_label": "enhanced check for digital signature with verification against expected signer."
+    },
+    {
+      "label": "Format the signature info for display.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L354",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_354",
+      "community": 2,
+      "norm_label": "format the signature info for display."
+    },
+    {
+      "label": "Rank suspicious DLLs by risk level.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L384",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_384",
+      "community": 3,
+      "norm_label": "rank suspicious dlls by risk level."
+    },
+    {
+      "label": "Analyzes DLLs for hijacking risks with performance optimizations.",
+      "file_type": "rationale",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L417",
+      "id": "dll_hijacking_detection_find_suspicious_dlls_rationale_417",
+      "community": 0,
+      "norm_label": "analyzes dlls for hijacking risks with performance optimizations."
+    },
+    {
+      "label": "pefile",
+      "file_type": "code",
+      "source_file": "requirements.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "requirements_pefile",
+      "community": 4,
+      "norm_label": "pefile"
+    },
+    {
+      "label": "requests",
+      "file_type": "code",
+      "source_file": "requirements.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "requirements_requests",
+      "community": 4,
+      "norm_label": "requests"
+    },
+    {
+      "label": "tabulate",
+      "file_type": "code",
+      "source_file": "requirements.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "requirements_tabulate",
+      "community": 4,
+      "norm_label": "tabulate"
+    },
+    {
+      "label": "DLL Hijacking Detection Tool",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_dll_hijacking_detection_tool",
+      "community": 4,
+      "norm_label": "dll hijacking detection tool"
+    },
+    {
+      "label": "Signature Verification",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_signature_verification",
+      "community": 2,
+      "norm_label": "signature verification"
+    },
+    {
+      "label": "VirusTotal Integration",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_virustotal_integration",
+      "community": 2,
+      "norm_label": "virustotal integration"
+    },
+    {
+      "label": "EXPECTED_SIGNERS",
+      "file_type": "code",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_expected_signers",
+      "community": 2,
+      "norm_label": "expected_signers"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_is_suspicious_dll",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_application_for_dll",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_expected_signer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_loaded_dlls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L115",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_file_hash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L134",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_virustotal_analysis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L204",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_file_origin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L235",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_analyze_imports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L285",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_check_digital_signature",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L353",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_format_signature_info",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L383",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_rank_suspicious_dlls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L416",
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_dll_hijacking_detection_tool",
+      "target": "find_suspicious_dlls_py"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "readme_signature_verification"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "readme_virustotal_integration"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "find_suspicious_dlls_py",
+      "target": "readme_expected_signers"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L437",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_is_suspicious_dll",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_75",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_is_suspicious_dll",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L290",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_check_digital_signature",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_application_for_dll",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L389",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rank_suspicious_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_application_for_dll",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L443",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_application_for_dll",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_81",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_application_for_dll",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L291",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_check_digital_signature",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_expected_signer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_88",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_expected_signer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L421",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_loaded_dlls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_95",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_loaded_dlls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L348",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_check_digital_signature",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_file_hash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_116",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_file_hash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L550",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_virustotal_analysis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_135",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_virustotal_analysis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L299",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_check_digital_signature",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_file_origin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L205",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_205",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_get_file_origin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L498",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_analyze_imports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L236",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_236",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_analyze_imports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L483",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_check_digital_signature",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L286",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_286",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_check_digital_signature",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L503",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_format_signature_info",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L354",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_354",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_format_signature_info",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L455",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_rank_suspicious_dlls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L384",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_384",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_rank_suspicious_dlls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "find_suspicious_dlls.py",
+      "source_location": "L417",
+      "weight": 1.0,
+      "source": "dll_hijacking_detection_find_suspicious_dlls_rationale_417",
+      "target": "dll_hijacking_detection_find_suspicious_dlls_analyze_dlls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_dll_hijacking_detection_tool",
+      "target": "requirements_pefile"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_dll_hijacking_detection_tool",
+      "target": "requirements_requests"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_dll_hijacking_detection_tool",
+      "target": "requirements_tabulate"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "017585cc72ad316ac7a93bbadf47808824c415b2"
+}

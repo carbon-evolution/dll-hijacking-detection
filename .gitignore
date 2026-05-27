@@ -32,3 +32,5 @@ reports/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+# graphify cache
+graphify-out/cache/
