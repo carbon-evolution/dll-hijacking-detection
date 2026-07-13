@@ -4,12 +4,19 @@ A security tool designed to identify potential DLL hijacking vulnerabilities by 
 
 ## Features
 
-- **Signature Verification**: Checks if DLLs have valid digital signatures from their expected publisher
+- **DLL Hijacking Detection** (MITRE ATT&CK T1574.001/002): flags the actual hijacking conditions, not just odd file locations —
+  - *Shadowing*: a System32 DLL name loaded from a non-system directory (a search-order hijack that already happened)
+  - *Writable location*: a loaded DLL sitting in a directory a normal user can overwrite (the surface an attacker needs)
+  - *Phantom imports*: an executable importing a DLL that is missing from the system, where its own writable folder would load a planted copy first
+  - KnownDLLs are correctly excluded (they always load from System32 and can't be hijacked)
+- **Signature Verification**: Checks if DLLs have valid digital signatures from their expected publisher (catalog-signed OS DLLs included)
 - **Application-Specific Analysis**: Identifies which application each DLL belongs to and verifies appropriate signatures
 - **Suspicious Import Detection**: Identifies DLLs that import functions often used in malicious code
 - **Hash Verification**: Generates SHA256 hashes for DLLs to allow verification against known-good versions
-- **VirusTotal Integration**: Checks suspicious DLLs against VirusTotal database (requires API key)
+- **VirusTotal Integration**: Checks suspicious DLLs against VirusTotal database (optional API key)
 - **Detailed Reporting**: Generates comprehensive reports in TXT and CSV formats
+
+Findings are ranked by severity (HIGH / MEDIUM) and shown in the console and the saved report.
 
 ## Requirements
 
@@ -61,6 +68,15 @@ python find_suspicious_dlls.py --sigcheck sigcheck64.exe   # enhanced mode
   at the Sysinternals binaries, the tool uses them for richer output. Not required.
 - **Known-app signers:** edit the `EXPECTED_SIGNERS` dictionary in the script to
   add applications you want signature-verified.
+
+## Running the tests
+
+The hijacking detectors have cross-platform tests (no Windows needed):
+
+```bash
+python -m pytest -q          # if pytest is installed
+python tests/test_hijack_detection.py   # or run standalone
+```
 
 ## License
 

@@ -100,6 +100,200 @@ def is_suspicious_dll(dll_path):
         return False
     return not any(dll_path.lower().startswith(path.lower()) for path in SAFE_PATHS)
 
+
+# ---------------------------------------------------------------------------
+# DLL hijacking detection
+#
+# The checks above only inventory DLLs loaded from odd locations. The functions
+# below look for the actual hijacking conditions (MITRE ATT&CK T1574.001/002):
+#   * shadowing  - a System32 DLL name loaded from a non-system directory
+#                  (a sideload/search-order hijack that already happened)
+#   * writable   - a suspicious DLL sitting in a directory a normal user can
+#                  overwrite (the surface an attacker needs)
+#   * phantom    - an imported DLL that is missing from the system, where the
+#                  app's own (writable) folder would satisfy the load first
+# ---------------------------------------------------------------------------
+
+_WINDIR = os.environ.get("SystemRoot", r"C:\Windows")
+_SYSTEM_DIRS = [os.path.join(_WINDIR, "System32"), os.path.join(_WINDIR, "SysWOW64")]
+
+
+def get_system_dll_index():
+    """Return a set of lowercased DLL basenames present in System32 / SysWOW64."""
+    names = set()
+    for d in _SYSTEM_DIRS:
+        try:
+            for f in os.listdir(d):
+                if f.lower().endswith(".dll"):
+                    names.add(f.lower())
+        except OSError:
+            continue
+    return names
+
+
+def get_known_dlls():
+    """Return the set of KnownDLLs, which are always loaded from System32 and
+    therefore cannot be hijacked. Read from the registry on Windows."""
+    known = set()
+    try:
+        import winreg
+        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
+                             r"SYSTEM\CurrentControlSet\Control\Session Manager\KnownDLLs")
+        i = 0
+        while True:
+            try:
+                _, value, _ = winreg.EnumValue(key, i)
+                if isinstance(value, str) and value.lower().endswith(".dll"):
+                    known.add(value.lower())
+                i += 1
+            except OSError:
+                break
+    except Exception:
+        pass
+    return known
+
+
+def is_user_writable(directory):
+    """Best-effort test of whether the current (non-elevated) user can write to
+    a directory - i.e. whether an attacker of the same privilege could plant a DLL."""
+    if not directory or not os.path.isdir(directory):
+        return False
+    try:
+        test = os.path.join(directory, f".__hijack_probe_{os.getpid()}")
+        with open(test, "w"):
+            pass
+        os.remove(test)
+        return True
+    except OSError:
+        return False
+
+
+def detect_shadow_and_writable(dll_paths, system_index, known_dlls):
+    """Findings for DLLs already loaded: system-name shadowing and writable dirs."""
+    findings = []
+    seen_dirs = {}
+    for path in dll_paths:
+        base = os.path.basename(path).lower()
+        directory = os.path.dirname(path)
+        in_system = any(path.lower().startswith(s.lower()) for s in _SYSTEM_DIRS)
+
+        # KnownDLLs are always loaded from System32 and cannot be hijacked - skip entirely.
+        if base in known_dlls:
+            continue
+
+        # Shadowing: a System32 DLL name loaded from somewhere else.
+        if base in system_index and not in_system:
+            writable = seen_dirs.setdefault(directory, is_user_writable(directory))
+            findings.append({
+                "type": "SHADOW",
+                "severity": "HIGH" if writable else "MEDIUM",
+                "dll": path,
+                "detail": f"System DLL name '{base}' loaded from non-system path"
+                          + (" in a USER-WRITABLE directory" if writable else ""),
+                "technique": "T1574.001 (DLL Search-Order Hijacking)",
+            })
+        # Writable location for any non-system DLL is a hijack surface.
+        elif not in_system:
+            writable = seen_dirs.setdefault(directory, is_user_writable(directory))
+            if writable:
+                findings.append({
+                    "type": "WRITABLE",
+                    "severity": "MEDIUM",
+                    "dll": path,
+                    "detail": "Loaded from a user-writable directory (plantable)",
+                    "technique": "T1574.002 (DLL Sideloading)",
+                })
+    return findings
+
+
+def detect_phantom_opportunities(system_index, known_dlls, max_procs=200):
+    """Findings for missing imports: an exe importing a DLL that is absent from
+    the system, where its own writable folder would satisfy the load first."""
+    findings = []
+    if psutil is None or pefile is None:
+        return findings
+    checked_exes = set()
+    writable_cache = {}
+    count = 0
+    for proc in psutil.process_iter():
+        if count >= max_procs:
+            break
+        try:
+            exe = proc.exe()
+        except (psutil.AccessDenied, psutil.NoSuchProcess, psutil.ZombieProcess, Exception):
+            continue
+        if not exe or exe.lower() in checked_exes or not exe.lower().endswith(".exe"):
+            continue
+        checked_exes.add(exe.lower())
+        exe_dir = os.path.dirname(exe)
+        # Only app dirs outside Program Files are realistically user-writable.
+        try:
+            pe = pefile.PE(exe, fast_load=True)
+            pe.parse_data_directories(directories=[pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_IMPORT']])
+        except Exception:
+            continue
+        count += 1
+        if not hasattr(pe, "DIRECTORY_ENTRY_IMPORT"):
+            continue
+        for entry in pe.DIRECTORY_ENTRY_IMPORT:
+            try:
+                name = entry.dll.decode("utf-8", "ignore")
+            except Exception:
+                continue
+            low = name.lower()
+            if not low.endswith(".dll") or low in known_dlls or low in system_index:
+                continue
+            # Imported DLL not resolvable from the system: phantom candidate.
+            local_copy = os.path.join(exe_dir, name)
+            if os.path.exists(local_copy):
+                continue  # ships its own copy in-folder; only risky if that folder is writable
+            writable = writable_cache.setdefault(exe_dir, is_user_writable(exe_dir))
+            if writable:
+                findings.append({
+                    "type": "PHANTOM",
+                    "severity": "HIGH",
+                    "dll": local_copy,
+                    "detail": f"{os.path.basename(exe)} imports '{name}' which is missing from "
+                              f"the system; its writable folder would load a planted copy first",
+                    "technique": "T1574.001 (Phantom DLL Hijacking)",
+                })
+    return findings
+
+
+def format_hijack_findings(findings):
+    """Render hijacking findings as a text block for the report."""
+    if not findings:
+        return "DLL HIJACKING FINDINGS:\n  None detected.\n\n"
+    lines = ["DLL HIJACKING FINDINGS:\n"]
+    for i, f in enumerate(findings, 1):
+        lines.append(f"{i}. [{f['severity']}] {f['type']} - {f['technique']}")
+        lines.append(f"   DLL:    {f['dll']}")
+        lines.append(f"   Detail: {f['detail']}")
+        lines.append("")
+    return "\n".join(lines) + "\n"
+
+
+def run_hijack_detection(dll_paths):
+    """Run all hijacking detectors and return a de-duplicated list of findings."""
+    print("\n🎯 Checking for DLL hijacking conditions...")
+    system_index = get_system_dll_index()
+    known_dlls = get_known_dlls()
+    if not system_index:
+        print("  (System32 not readable here - shadow/phantom checks need Windows.)")
+    findings = detect_shadow_and_writable(dll_paths, system_index, known_dlls)
+    findings += detect_phantom_opportunities(system_index, known_dlls)
+    # De-duplicate on (type, dll).
+    seen = set()
+    unique = []
+    for f in findings:
+        key = (f["type"], f["dll"].lower())
+        if key not in seen:
+            seen.add(key)
+            unique.append(f)
+    order = {"HIGH": 0, "MEDIUM": 1, "LOW": 2}
+    unique.sort(key=lambda f: order.get(f["severity"], 3))
+    return unique
+
 def get_application_for_dll(dll_path):
     """Identify which application a DLL belongs to based on its path."""
     for app_name, (path_pattern, _) in EXPECTED_SIGNERS.items():
@@ -569,7 +763,19 @@ def analyze_dlls():
             unique_suspicious_dlls.append((dll_path, dll_info))
     
     print(f"Found {len(suspicious_dlls)} suspicious DLLs, prioritizing {len(unique_suspicious_dlls)} for detailed analysis")
-    
+
+    # Dedicated DLL-hijacking detection (shadowing / writable dirs / phantom imports).
+    hijack_findings = run_hijack_detection(dll_paths)
+    if hijack_findings:
+        highs = sum(1 for f in hijack_findings if f["severity"] == "HIGH")
+        print(f"\n⚠️  {len(hijack_findings)} potential hijacking condition(s) found ({highs} HIGH):")
+        for f in hijack_findings[:15]:
+            print(f"  [{f['severity']}] {f['type']}: {os.path.basename(f['dll'])} - {f['detail']}")
+        if len(hijack_findings) > 15:
+            print(f"  ... and {len(hijack_findings) - 15} more (see report).")
+    else:
+        print("  No hijacking conditions detected.")
+
     # Limit analysis to the specified maximum from unique DLLs
     suspicious_to_analyze = unique_suspicious_dlls[:MAX_SUSPICIOUS_TO_ANALYZE]
     
@@ -684,7 +890,7 @@ def analyze_dlls():
             print("\nSkipping VirusTotal analysis - no API key provided")
             print("To enable VirusTotal community score analysis:")
             print("1. Get a free API key from https://www.virustotal.com/")
-            print("2. Add your API key to the script at line 45 (VIRUSTOTAL_API_KEY variable)")
+            print("2. Pass it with --vt-key <KEY> or set the VT_API_KEY environment variable")
     
         # Output to console
         print(f"\nFound {len(suspicious_dlls)} suspicious DLLs out of {dll_count} total DLLs")
@@ -729,8 +935,12 @@ def analyze_dlls():
             f.write("SUMMARY:\n")
             f.write(f"Total DLLs scanned: {dll_count}\n")
             f.write(f"Suspicious DLLs found: {len(suspicious_dlls)}\n")
-            f.write(f"DLLs analyzed in detail: {len(suspicious_to_analyze)}\n\n")
-            
+            f.write(f"DLLs analyzed in detail: {len(suspicious_to_analyze)}\n")
+            f.write(f"Hijacking conditions found: {len(hijack_findings)} "
+                    f"({sum(1 for x in hijack_findings if x['severity'] == 'HIGH')} HIGH)\n\n")
+
+            f.write(format_hijack_findings(hijack_findings))
+
             # Write detailed table to file
             if suspicious_to_analyze:
                 f.write("ANALYZED SUSPICIOUS DLLs:\n")
@@ -812,6 +1022,22 @@ def analyze_dlls():
                     
                 writer.writerow(row)
         
+        print(f"\nScan completed in {time.time() - start_time:.2f} seconds")
+    else:
+        # No suspicious DLLs, but still write a report so hijacking findings persist.
+        with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+            f.write("=" * 80 + "\n")
+            f.write("DLL HIJACKING VULNERABILITY SCAN REPORT\n")
+            f.write(f"Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"System: {platform.system()} {platform.version()} ({platform.architecture()[0]})\n")
+            f.write("=" * 80 + "\n\n")
+            f.write("SUMMARY:\n")
+            f.write(f"Total DLLs scanned: {dll_count}\n")
+            f.write("Suspicious DLLs found: 0\n")
+            f.write(f"Hijacking conditions found: {len(hijack_findings)} "
+                    f"({sum(1 for x in hijack_findings if x['severity'] == 'HIGH')} HIGH)\n\n")
+            f.write(format_hijack_findings(hijack_findings))
+        print(f"\nNo suspicious DLLs. Report saved to: {OUTPUT_FILE}")
         print(f"\nScan completed in {time.time() - start_time:.2f} seconds")
 
 def _auto_find_sysinternals(name):
