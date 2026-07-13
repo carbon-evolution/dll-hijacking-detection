@@ -52,7 +52,7 @@ jobs:
           Get-Content $report.FullName -TotalCount 25
       - name: Upload scan report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: windows-scan-report
           path: reports/
