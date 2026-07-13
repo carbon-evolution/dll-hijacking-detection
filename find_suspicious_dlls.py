@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 import re
 import datetime
@@ -1048,6 +1049,17 @@ def _auto_find_sysinternals(name):
             return found
     return None
 
+def _force_utf8_console():
+    """Ensure the console can print emoji/Unicode. On Windows the default code
+    page (e.g. cp1252) raises UnicodeEncodeError on characters like the scan
+    emoji; reconfigure stdout/stderr to UTF-8 so the tool never crashes on output."""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Detect suspicious DLLs loaded from non-standard locations (potential DLL hijacking).",
@@ -1064,6 +1076,7 @@ def parse_args():
     return parser.parse_args()
 
 if __name__ == "__main__":
+    _force_utf8_console()
     args = parse_args()
     VIRUSTOTAL_API_KEY = args.vt_key
     MAX_SUSPICIOUS_TO_ANALYZE = args.max
