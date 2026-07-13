@@ -4,16 +4,38 @@ import re
 import datetime
 import csv
 import hashlib
-import pefile
 import platform
 import time
-import requests
 import json
-from tabulate import tabulate  # You may need to install this: pip install tabulate
+import shutil
+import argparse
 
-# Define paths for Sysinternals tools (update if needed)
-LISTDLLS_PATH = r"C:\Users\arthur\Downloads\SysinternalsSuite\Listdlls64.exe"
-SIGCHECK_PATH = r"C:\Users\arthur\Downloads\SysinternalsSuite\sigcheck64.exe"
+try:
+    import pefile
+except ImportError:
+    pefile = None
+
+try:
+    import requests
+except ImportError:
+    requests = None
+
+try:
+    import psutil
+except ImportError:
+    psutil = None
+
+try:
+    from tabulate import tabulate
+except ImportError:
+    tabulate = None
+
+# Optional Sysinternals tools. Left as None by default: the tool works without
+# them using psutil (DLL enumeration) + PowerShell (signature checks), so a
+# fresh clone runs with no external downloads. If these binaries are found on
+# PATH or set via --listdlls / --sigcheck, they are used as an enhanced mode.
+LISTDLLS_PATH = None
+SIGCHECK_PATH = None
 
 # Define safe DLL directories
 SAFE_PATHS = [
@@ -55,9 +77,10 @@ MAX_SUSPICIOUS_TO_ANALYZE = 20   # Increased to 20 to check more files
 MAX_FILE_SIZE_FOR_ANALYSIS = 100 * 1024 * 1024  # Skip files larger than 100MB for deep analysis
 ANALYSIS_TIMEOUT = 30  # Seconds
 
-# VirusTotal API settings
-# Replace with your API key - get one free at https://www.virustotal.com/
-VIRUSTOTAL_API_KEY = ""  # Add your API key here if you want to use VirusTotal
+# VirusTotal API settings.
+# The key is read from the VT_API_KEY environment variable or the --vt-key flag.
+# Never hardcode a key in source. Get a free one at https://www.virustotal.com/
+VIRUSTOTAL_API_KEY = os.environ.get("VT_API_KEY", "")
 VIRUSTOTAL_API_URL = "https://www.virustotal.com/api/v3/files/"
 VIRUSTOTAL_ANALYSIS_LIMIT = 10  # Increased from 4 to 10 to match MAX_SUSPICIOUS_TO_ANALYZE
 
@@ -92,25 +115,66 @@ def get_expected_signer(dll_path):
     return None
 
 def get_loaded_dlls():
-    """Runs ListDLLs.exe to get all loaded DLLs."""
-    cmd = f'"{LISTDLLS_PATH}" -accepteula'
-    try:
-        print("Running ListDLLs (this may take a few moments)...")
-        output = subprocess.check_output(cmd, shell=True, text=True)
-        return output
-    except subprocess.CalledProcessError as e:
-        print(f"Error running ListDLLs: {e}")
-        # Fallback to PowerShell method if ListDLLs fails
-        print("Falling back to PowerShell method...")
-        ps_command = 'powershell -Command "Get-Process | ForEach-Object {$_.Modules} | Where-Object {$_.FileName -like \'*.dll\'} | Select-Object FileName -Unique | Format-Table -HideTableHeaders"'
+    """Return the set of unique DLL paths currently loaded by running processes.
+
+    Order of preference:
+      1. psutil  - pure Python, no external binaries, no admin needed for your
+         own processes. This is the default so a fresh clone just works.
+      2. Sysinternals ListDLLs - only if LISTDLLS_PATH is set/found (enhanced).
+      3. PowerShell Get-Process - last-resort fallback, always present on Windows.
+    """
+    # 1. Preferred: psutil
+    if psutil is not None:
+        print("Enumerating loaded DLLs via psutil...")
+        dlls = set()
+        accessible = 0
+        for proc in psutil.process_iter():
+            try:
+                for m in proc.memory_maps():
+                    path = getattr(m, "path", "")
+                    if path and path.lower().endswith(".dll"):
+                        dlls.add(path)
+                accessible += 1
+            except (psutil.AccessDenied, psutil.NoSuchProcess, psutil.ZombieProcess):
+                continue
+            except Exception:
+                continue
+        if dlls:
+            print(f"  Collected {len(dlls)} unique DLLs from {accessible} accessible processes.")
+            print("  Tip: run as Administrator to see DLLs in system/other-user processes.")
+            return sorted(dlls)
+        print("  psutil returned no DLLs; trying fallbacks...")
+
+    # 2. Optional: Sysinternals ListDLLs
+    if LISTDLLS_PATH:
         try:
-            output = subprocess.check_output(ps_command, shell=True, text=True)
-            if output.strip():
-                return output
+            print("Running ListDLLs (this may take a few moments)...")
+            output = subprocess.check_output(f'"{LISTDLLS_PATH}" -accepteula', shell=True, text=True)
+            return _extract_dll_paths(output)
         except Exception as e:
-            print(f"Error with PowerShell fallback: {e}")
-        
-        return None
+            print(f"Error running ListDLLs: {e}")
+
+    # 3. Fallback: PowerShell
+    print("Falling back to PowerShell (Get-Process modules)...")
+    ps_command = ('powershell -NoProfile -Command "Get-Process | ForEach-Object {$_.Modules} | '
+                  "Where-Object {$_.FileName -like '*.dll'} | Select-Object -ExpandProperty FileName -Unique\"")
+    try:
+        output = subprocess.check_output(ps_command, shell=True, text=True)
+        if output.strip():
+            return _extract_dll_paths(output)
+    except Exception as e:
+        print(f"Error with PowerShell fallback: {e}")
+
+    return None
+
+def _extract_dll_paths(text):
+    """Pull unique DLL file paths out of a text blob (ListDLLs / PowerShell output)."""
+    paths = set()
+    for line in text.split("\n"):
+        match = re.search(r'([A-Za-z]:\\[^\r\n]+?\.dll)', line, re.IGNORECASE)
+        if match:
+            paths.add(match.group(1).strip())
+    return sorted(paths)
 
 def get_file_hash(file_path):
     """Calculate SHA256 hash of a file (faster than multiple hashes)."""
@@ -135,7 +199,9 @@ def get_virustotal_analysis(file_hash):
     """Query the VirusTotal API for file analysis based on hash."""
     if not VIRUSTOTAL_API_KEY:
         return {"Status": "No API key provided"}
-        
+    if requests is None:
+        return {"Status": "requests not installed"}
+
     try:
         headers = {
             'x-apikey': VIRUSTOTAL_API_KEY
@@ -235,6 +301,8 @@ def get_file_origin(file_path):
 def analyze_imports(file_path):
     """Analyze DLL imports for suspicious API calls with timeout."""
     start_time = time.time()
+    if pefile is None:
+        return {"ImportAnalysis": "Skipped (pefile not installed)", "TotalSuspiciousAPIs": 0}
     try:
         # Check file size first
         file_size = os.path.getsize(file_path)
@@ -282,6 +350,58 @@ def analyze_imports(file_path):
             "TotalSuspiciousAPIs": 0
         }
 
+def render_table(rows, headers):
+    """Render a table with tabulate if available, else a plain fallback."""
+    if tabulate is not None:
+        return tabulate(rows, headers=headers, tablefmt="grid")
+    lines = ["  |  ".join(str(h) for h in headers)]
+    lines.append("-" * len(lines[0]))
+    for row in rows:
+        lines.append("  |  ".join(str(c) for c in row))
+    return "\n".join(lines)
+
+def _extract_cn(subject):
+    """Pull the CN (common name) out of an X.500 certificate subject string."""
+    if not subject:
+        return ""
+    m = re.search(r'CN=(?:"([^"]+)"|([^,]+))', subject)
+    if m:
+        return (m.group(1) or m.group(2)).strip()
+    return subject.strip()
+
+def _signature_via_powershell(dll_path):
+    """Return (is_signed, publisher) using built-in PowerShell Get-AuthenticodeSignature.
+
+    Status 'Valid' counts as signed; this also covers catalog-signed OS DLLs, which
+    avoids flagging legitimate unsigned-on-disk Windows components as suspicious.
+    """
+    ps = (
+        "$ErrorActionPreference='SilentlyContinue';"
+        f"$s = Get-AuthenticodeSignature -LiteralPath '{dll_path}';"
+        "$subj = if ($s.SignerCertificate) { $s.SignerCertificate.Subject } else { '' };"
+        "Write-Output ($s.Status.ToString() + '||' + $subj)"
+    )
+    result = subprocess.run(
+        ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps],
+        capture_output=True, text=True, timeout=20
+    )
+    out = (result.stdout or "").strip()
+    status, _, subject = out.partition("||")
+    is_signed = status.strip().lower() == "valid"
+    return is_signed, _extract_cn(subject)
+
+def _signature_via_sigcheck(dll_path):
+    """Return (is_signed, publisher) using Sysinternals sigcheck (enhanced mode)."""
+    cmd = f'"{SIGCHECK_PATH}" -nobanner -a "{dll_path}"'
+    output = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=15).stdout or ""
+    signed_match = re.search(r"Verified:\s*(\w+)", output, re.IGNORECASE) or re.search(r"Signed:\s*(\w+)", output, re.IGNORECASE)
+    is_signed = bool(signed_match and signed_match.group(1).lower() in ("signed", "true"))
+    publisher = ""
+    pub_match = re.search(r"Publisher:\s*(.*?)$", output, re.MULTILINE)
+    if pub_match:
+        publisher = pub_match.group(1).strip()
+    return is_signed, publisher
+
 def check_digital_signature(dll_path):
     """Enhanced check for digital signature with verification against expected signer."""
     signature_info = {}
@@ -305,40 +425,29 @@ def check_digital_signature(dll_path):
         signature_info["SignatureVerification"] = "Skipped - file too large"
         return signature_info
     
-    # Check digital signature using sigcheck
+    # Check digital signature. Default: built-in PowerShell Get-AuthenticodeSignature
+    # (present on every Windows box, understands catalog-signed system DLLs).
+    # If SIGCHECK_PATH is set, use Sysinternals sigcheck instead (enhanced mode).
     try:
-        cmd = f'"{SIGCHECK_PATH}" -nobanner -a "{dll_path}"'
-        output = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=15).stdout
-        
-        # Extract signature status
-        if "Signed" in output:
-            signed_match = re.search(r"Signed:\s*(\w+)", output, re.IGNORECASE)
-            is_signed = signed_match and signed_match.group(1).lower() == "true"
-            signature_info["SignatureStatus"] = "Signed" if is_signed else "Unsigned"
+        if SIGCHECK_PATH:
+            is_signed, publisher = _signature_via_sigcheck(dll_path)
         else:
-            signature_info["SignatureStatus"] = "Unsigned"
-            
-        # Extract publisher if available
-        if "Publisher:" in output:
-            publisher_match = re.search(r"Publisher:\s*(.*?)$", output, re.MULTILINE)
-            if publisher_match:
-                publisher = publisher_match.group(1).strip()
-                signature_info["Publisher"] = publisher
-                
-                # Verify if publisher matches expected signer
-                if expected_signer:
-                    if publisher and expected_signer.lower() in publisher.lower():
-                        signature_info["SignatureVerification"] = f"✓ Verified (matches {app_name})"
-                    else:
-                        signature_info["SignatureVerification"] = f"❌ Invalid (expected {expected_signer}, got {publisher})"
-                else:
-                    signature_info["SignatureVerification"] = "Unknown (no expected signer)"
-        else:
-            signature_info["Publisher"] = "None"
-            if expected_signer:
-                signature_info["SignatureVerification"] = f"❌ Invalid (expected {expected_signer}, no signature found)"
+            is_signed, publisher = _signature_via_powershell(dll_path)
+
+        signature_info["SignatureStatus"] = "Signed" if is_signed else "Unsigned"
+        signature_info["Publisher"] = publisher or "None"
+
+        if expected_signer:
+            if is_signed and publisher and expected_signer.lower() in publisher.lower():
+                signature_info["SignatureVerification"] = f"✓ Verified (matches {app_name})"
+            elif is_signed:
+                signature_info["SignatureVerification"] = f"❌ Invalid (expected {expected_signer}, got {publisher})"
             else:
-                signature_info["SignatureVerification"] = "Unsigned"
+                signature_info["SignatureVerification"] = f"❌ Invalid (expected {expected_signer}, no valid signature found)"
+        elif is_signed:
+            signature_info["SignatureVerification"] = f"Signed by {publisher}" if publisher else "Signed"
+        else:
+            signature_info["SignatureVerification"] = "Unsigned"
     except Exception as e:
         signature_info["SignatureStatus"] = "Check Failed"
         signature_info["SignatureVerification"] = f"Error: {str(e)}"
@@ -418,39 +527,36 @@ def analyze_dlls():
     start_time = time.time()
     print("\n🔍 Scanning for Suspicious DLLs...\n")
     
-    dll_data = get_loaded_dlls()
-    if not dll_data:
+    dll_paths = get_loaded_dlls()
+    if not dll_paths:
         print("❌ Unable to fetch DLL list!")
         return
 
     all_dlls = []
     suspicious_dlls = []
-    
+
     # First pass: identify all DLLs and mark suspicious ones
     print("Identifying suspicious DLLs...")
     dll_count = 0
-    for line in dll_data.split("\n"):
-        match = re.search(r'([A-Za-z]:\\[^\s]+\.dll)', line)
-        if match:
-            dll_count += 1
-            dll_path = match.group(1)
-            is_suspicious = is_suspicious_dll(dll_path)
-            dll_info = {
-                "Path": dll_path,
-                "Suspicious": "Yes" if is_suspicious else "No",
-                "Signature": "Not checked",
-                "Verification": "",
-                "Application": get_application_for_dll(dll_path),
-                "VTCommunity": "",
-                "VTDetection": "",
-                "VTTags": ""
-            }
-            all_dlls.append(dll_info)
-            
-            # Only add to suspicious list, don't analyze yet
-            if is_suspicious:
-                suspicious_dlls.append((dll_path, dll_info))
-                
+    for dll_path in dll_paths:
+        dll_count += 1
+        is_suspicious = is_suspicious_dll(dll_path)
+        dll_info = {
+            "Path": dll_path,
+            "Suspicious": "Yes" if is_suspicious else "No",
+            "Signature": "Not checked",
+            "Verification": "",
+            "Application": get_application_for_dll(dll_path),
+            "VTCommunity": "",
+            "VTDetection": "",
+            "VTTags": ""
+        }
+        all_dlls.append(dll_info)
+
+        # Only add to suspicious list, don't analyze yet
+        if is_suspicious:
+            suspicious_dlls.append((dll_path, dll_info))
+
     # Rank suspicious DLLs to prioritize diverse applications
     ranked_suspicious_dlls = rank_suspicious_dlls(suspicious_dlls)
     
@@ -601,7 +707,7 @@ def analyze_dlls():
                 detailed_table.append(row)
                 
             # Print the detailed table
-            print("\n" + tabulate(detailed_table, headers=headers, tablefmt="grid"))
+            print("\n" + render_table(detailed_table, headers))
             
             if len(suspicious_dlls) > MAX_SUSPICIOUS_TO_ANALYZE:
                 print(f"\nNote: Only {len(suspicious_to_analyze)} of {len(suspicious_dlls)} suspicious DLLs were analyzed.")
@@ -628,7 +734,7 @@ def analyze_dlls():
             # Write detailed table to file
             if suspicious_to_analyze:
                 f.write("ANALYZED SUSPICIOUS DLLs:\n")
-                f.write(tabulate(detailed_table, headers=headers, tablefmt="grid"))
+                f.write(render_table(detailed_table, headers))
                 f.write("\n\n")
                 
                 # Write detailed signature verification information for each DLL
@@ -649,14 +755,7 @@ def analyze_dlls():
                         f.write(f"   VirusTotal Community Score: {data.get('VTCommunity', '')}\n")
                         f.write(f"   VirusTotal Detection Rate: {data.get('VTDetection', '')}\n")
                         f.write(f"   VirusTotal Tags: {data.get('VTTags', '')}\n")
-                        
-                    f.write("\n")
-                    
-                    if data.get("VTCommunity"):
-                        f.write(f"   VirusTotal Community Score: {data.get('VTCommunity', '')}\n")
-                        f.write(f"   VirusTotal Detection Rate: {data.get('VTDetection', '')}\n")
-                        f.write(f"   VirusTotal Tags: {data.get('VTTags', '')}\n")
-                        
+
                     f.write("\n")
             
             # Write all suspicious DLLs paths (without detailed analysis)
@@ -715,5 +814,41 @@ def analyze_dlls():
         
         print(f"\nScan completed in {time.time() - start_time:.2f} seconds")
 
+def _auto_find_sysinternals(name):
+    """Return the path to a Sysinternals tool if it happens to be on PATH."""
+    for candidate in (name, name.replace("64", ""), name + ".exe"):
+        found = shutil.which(candidate)
+        if found:
+            return found
+    return None
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Detect suspicious DLLs loaded from non-standard locations (potential DLL hijacking).",
+        epilog="Just run 'python find_suspicious_dlls.py' with no arguments for a default scan."
+    )
+    parser.add_argument("--vt-key", default=VIRUSTOTAL_API_KEY,
+                        help="VirusTotal API key (or set the VT_API_KEY environment variable). Optional.")
+    parser.add_argument("--max", type=int, default=MAX_SUSPICIOUS_TO_ANALYZE,
+                        help=f"Max suspicious DLLs to deeply analyze (default {MAX_SUSPICIOUS_TO_ANALYZE}).")
+    parser.add_argument("--listdlls", default=None,
+                        help="Optional path to Sysinternals Listdlls.exe (enhanced enumeration).")
+    parser.add_argument("--sigcheck", default=None,
+                        help="Optional path to Sysinternals sigcheck.exe (enhanced signature checks).")
+    return parser.parse_args()
+
 if __name__ == "__main__":
+    args = parse_args()
+    VIRUSTOTAL_API_KEY = args.vt_key
+    MAX_SUSPICIOUS_TO_ANALYZE = args.max
+    LISTDLLS_PATH = args.listdlls or _auto_find_sysinternals("Listdlls64.exe")
+    SIGCHECK_PATH = args.sigcheck or _auto_find_sysinternals("sigcheck64.exe")
+
+    if platform.system() != "Windows":
+        print("⚠️  This tool inspects Windows DLLs and is intended to run on Windows.")
+        print("    It will still start, but DLL enumeration will likely return nothing here.\n")
+    if psutil is None:
+        print("⚠️  psutil is not installed. Install dependencies first:")
+        print("       pip install -r requirements.txt\n")
+
     analyze_dlls()
