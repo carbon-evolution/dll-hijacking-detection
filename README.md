@@ -1,6 +1,14 @@
 # DLL Hijacking Detection Tool
 
-A security tool designed to identify potential DLL hijacking vulnerabilities by analyzing suspicious DLLs loaded by applications.
+[![CI](https://github.com/carbon-evolution/dll-hijacking-detection/actions/workflows/ci.yml/badge.svg)](https://github.com/carbon-evolution/dll-hijacking-detection/actions/workflows/ci.yml)
+
+A defensive Windows security tool that detects **DLL hijacking conditions** on a
+running system — not just DLLs loaded from odd folders, but the actual situations
+an attacker exploits: a system DLL shadowed from a writable directory, a plantable
+load path, or a missing import that a dropped DLL would satisfy first
+(MITRE ATT&CK [T1574.001 / T1574.002](https://attack.mitre.org/techniques/T1574/001/)).
+
+Runs straight from a clone — no external binaries to download.
 
 ## Features
 
@@ -73,13 +81,43 @@ python find_suspicious_dlls.py --sigcheck sigcheck64.exe   # enhanced mode
 - **Known-app signers:** edit the `EXPECTED_SIGNERS` dictionary in the script to
   add applications you want signature-verified.
 
+## Example output
+
+```
+🔍 Scanning for Suspicious DLLs...
+Enumerating loaded DLLs via psutil...
+  Collected 1061 unique DLLs from 214 accessible processes.
+Found 205 suspicious DLLs, prioritizing 20 for detailed analysis
+
+🎯 Checking for DLL hijacking conditions...
+
+⚠️  1 potential hijacking condition(s) found (1 HIGH):
+  [HIGH] SHADOW: version.dll - System DLL name 'version.dll' loaded from
+         non-system path in a USER-WRITABLE directory
+```
+
+Full findings (with MITRE technique IDs), the signature-verification table, and
+suspect imports are written to `reports/suspicious_dlls_<timestamp>.txt` and `.csv`.
+
+## Scope & limitations
+
+- **Windows only**, and it inspects **currently running** processes — plant-and-exit
+  attacks that have already unloaded won't appear. Run periodically or after launching
+  the apps you care about.
+- Run **as Administrator** for full coverage; without elevation you only see DLLs in
+  your own processes.
+- Severity is tuned to keep false positives low (apisets and common redistributables
+  are excluded), but findings are *indicators*, not proof — verify HIGH results by
+  checking the DLL's publisher and location before acting.
+
 ## Running the tests
 
-The hijacking detectors have cross-platform tests (no Windows needed):
+The detectors have cross-platform tests (no Windows needed) — also run on every push
+via GitHub Actions, including a live scan on a real Windows runner:
 
 ```bash
-python -m pytest -q          # if pytest is installed
-python tests/test_hijack_detection.py   # or run standalone
+python -m pytest -q                       # if pytest is installed
+python tests/test_hijack_detection.py     # or run standalone
 ```
 
 ## License
