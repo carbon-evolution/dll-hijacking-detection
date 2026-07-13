@@ -118,6 +118,26 @@ def is_suspicious_dll(dll_path):
 _WINDIR = os.environ.get("SystemRoot", r"C:\Windows")
 _SYSTEM_DIRS = [os.path.join(_WINDIR, "System32"), os.path.join(_WINDIR, "SysWOW64")]
 
+# Names that legitimately live outside System32 and would otherwise flood the
+# results with false positives. Excluded from shadow/phantom checks:
+#   * apiset stubs (api-ms-win-*, ext-ms-*) are virtual contracts, not real
+#     files, so they always look "missing from the system"
+#   * common redistributables (VC++, UCRT, .NET, WebView2) are meant to ship
+#     inside application folders, so a copy there is not a hijack
+_REDIST_DLLS = {
+    "vcruntime140.dll", "vcruntime140_1.dll", "msvcp140.dll", "msvcp140_1.dll",
+    "msvcp140_2.dll", "concrt140.dll", "vccorlib140.dll", "ucrtbase.dll",
+    "mfc140.dll", "mfc140u.dll", "msvcr100.dll", "msvcr110.dll", "msvcr120.dll",
+    "d3dcompiler_47.dll", "libegl.dll", "libglesv2.dll", "ffmpeg.dll",
+    "webview2loader.dll", "clrjit.dll", "coreclr.dll", "hostfxr.dll",
+    "hostpolicy.dll", "mscordbi.dll", "mscordaccore.dll", "clrcompression.dll",
+}
+
+
+def _is_apiset(name):
+    n = name.lower()
+    return n.startswith("api-ms-win") or n.startswith("ext-ms-")
+
 
 def get_system_dll_index():
     """Return a set of lowercased DLL basenames present in System32 / SysWOW64."""
@@ -178,11 +198,14 @@ def detect_shadow_and_writable(dll_paths, system_index, known_dlls):
         directory = os.path.dirname(path)
         in_system = any(path.lower().startswith(s.lower()) for s in _SYSTEM_DIRS)
 
-        # KnownDLLs are always loaded from System32 and cannot be hijacked - skip entirely.
-        if base in known_dlls:
+        # KnownDLLs can't be hijacked; redistributables legitimately live in
+        # app folders. Skip both to avoid false positives.
+        if base in known_dlls or base in _REDIST_DLLS:
             continue
 
-        # Shadowing: a System32 DLL name loaded from somewhere else.
+        # Shadowing: a System32 DLL name loaded from somewhere else. This is the
+        # strongest signal - HIGH when the directory is also user-writable
+        # (an attacker could have planted it), MEDIUM otherwise.
         if base in system_index and not in_system:
             writable = seen_dirs.setdefault(directory, is_user_writable(directory))
             findings.append({
@@ -193,15 +216,16 @@ def detect_shadow_and_writable(dll_paths, system_index, known_dlls):
                           + (" in a USER-WRITABLE directory" if writable else ""),
                 "technique": "T1574.001 (DLL Search-Order Hijacking)",
             })
-        # Writable location for any non-system DLL is a hijack surface.
+        # A non-system DLL in a writable directory is only a hijack *surface*,
+        # not evidence of one - report it as LOW (informational).
         elif not in_system:
             writable = seen_dirs.setdefault(directory, is_user_writable(directory))
             if writable:
                 findings.append({
                     "type": "WRITABLE",
-                    "severity": "MEDIUM",
+                    "severity": "LOW",
                     "dll": path,
-                    "detail": "Loaded from a user-writable directory (plantable)",
+                    "detail": "Loaded from a user-writable directory (plantable surface)",
                     "technique": "T1574.002 (DLL Sideloading)",
                 })
     return findings
@@ -242,7 +266,10 @@ def detect_phantom_opportunities(system_index, known_dlls, max_procs=200):
             except Exception:
                 continue
             low = name.lower()
-            if not low.endswith(".dll") or low in known_dlls or low in system_index:
+            # Skip non-DLLs, KnownDLLs, DLLs present in the system, apiset stubs
+            # (virtual contracts that always look "missing"), and redistributables.
+            if (not low.endswith(".dll") or low in known_dlls or low in system_index
+                    or _is_apiset(low) or low in _REDIST_DLLS):
                 continue
             # Imported DLL not resolvable from the system: phantom candidate.
             local_copy = os.path.join(exe_dir, name)
@@ -252,7 +279,7 @@ def detect_phantom_opportunities(system_index, known_dlls, max_procs=200):
             if writable:
                 findings.append({
                     "type": "PHANTOM",
-                    "severity": "HIGH",
+                    "severity": "MEDIUM",
                     "dll": local_copy,
                     "detail": f"{os.path.basename(exe)} imports '{name}' which is missing from "
                               f"the system; its writable folder would load a planted copy first",

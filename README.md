@@ -16,7 +16,11 @@ A security tool designed to identify potential DLL hijacking vulnerabilities by 
 - **VirusTotal Integration**: Checks suspicious DLLs against VirusTotal database (optional API key)
 - **Detailed Reporting**: Generates comprehensive reports in TXT and CSV formats
 
-Findings are ranked by severity (HIGH / MEDIUM) and shown in the console and the saved report.
+Findings are ranked by severity and shown in the console and the saved report:
+**HIGH** = a System32 DLL name loaded from a user-writable non-system directory (a hijack that likely already happened);
+**MEDIUM** = the same name from a non-writable location, or a phantom import opportunity;
+**LOW** = a non-system DLL merely sitting in a writable directory (surface only).
+Windows apiset stubs (`api-ms-win-*`) and common redistributables (VC++, UCRT, .NET, WebView2) are excluded to avoid false positives.
 
 ## Requirements
 

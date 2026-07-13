@@ -47,14 +47,29 @@ def test_system_copy_is_ignored():
     assert findings == []
 
 
-def test_writable_nonsystem_dll_is_medium():
+def test_writable_nonsystem_dll_is_low():
     app = tempfile.mkdtemp()
     _setup(app)
     loaded = [os.path.join(app, "vendor_helper.dll")]  # not a system name
     findings = m.detect_shadow_and_writable(loaded, {"version.dll"}, set())
     assert len(findings) == 1
     assert findings[0]["type"] == "WRITABLE"
-    assert findings[0]["severity"] == "MEDIUM"
+    assert findings[0]["severity"] == "LOW"
+
+
+def test_redistributable_shadow_is_ignored():
+    app = tempfile.mkdtemp()
+    _setup(app)
+    # vcruntime140 legitimately ships in app folders even though it exists in System32.
+    loaded = [os.path.join(app, "vcruntime140.dll")]
+    findings = m.detect_shadow_and_writable(loaded, {"vcruntime140.dll"}, set())
+    assert findings == []
+
+
+def test_apiset_helper():
+    assert m._is_apiset("api-ms-win-core-file-l1-1-0.dll") is True
+    assert m._is_apiset("ext-ms-win-foo.dll") is True
+    assert m._is_apiset("kernel32.dll") is False
 
 
 def test_format_findings_empty_and_nonempty():
