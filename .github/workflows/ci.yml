@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, "feat/**" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # Cross-platform unit tests (fast, no Windows needed).
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt pytest
+      - name: Unit tests
+        run: python -m pytest -q
+      - name: Syntax check
+        run: python -m py_compile find_suspicious_dlls.py
+
+  # Real Windows run: exercises psutil enumeration, PowerShell signature checks,
+  # hijack detection and report writing against actual loaded DLLs on a Windows box.
+  windows-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt pytest
+      - name: Unit tests (Windows)
+        run: python -m pytest -q
+      - name: Live scan smoke test
+        run: python find_suspicious_dlls.py --max 5
+      - name: Confirm a report was produced
+        shell: pwsh
+        run: |
+          $report = Get-ChildItem reports -Filter *.txt | Select-Object -First 1
+          if (-not $report) { throw "No report file was generated" }
+          Write-Host "Report generated: $($report.Name)"
+          Get-Content $report.FullName -TotalCount 20
+      - name: Upload scan report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-scan-report
+          path: reports/
